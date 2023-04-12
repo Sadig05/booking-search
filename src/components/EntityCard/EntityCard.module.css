@@ -1,0 +1,67 @@
+
+.cardContainer{
+    display: flex;
+    gap: 20px;
+    --mainGrey: #5E6263;
+    --mainBlack: #191C1F;
+    font-family: 'Roboto', sans-serif;
+    line-height: 150%;
+}
+
+.img{
+    width: 260px;
+    height: 160px;
+    object-fit: cover;
+}
+
+.entityContent{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.title{
+    font-family: 'Poppins', sans-serif;
+    color: var(--mainBlack);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0.02em;
+}
+
+.locationContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+    color: var(--mainGrey);
+}
+
+.dot {
+    display: inline-block;
+    margin: 0 10px; /* adjust the spacing between the dots and the text */
+    color: #5E6263;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 150%;
+}
+
+.about{
+    display: flex;
+    color: var(--mainGrey);
+}
+
+
+.price{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0.02em;
+    color: var(--mainBlack);
+
+}
+
