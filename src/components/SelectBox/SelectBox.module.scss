@@ -1,3 +1,20 @@
 .container{
   width: 270px;
 }
+
+.selectWrapper{
+  position: relative;
+}
+
+.sortByLabel{
+  z-index: 2;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%) ;
+  color: #5E6263;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%
+
+}

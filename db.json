@@ -56,7 +56,7 @@
         "High-end amenities"
       ],
       "price": 980000,
-      "type": "Apartment "
+      "type": "Appartment"
     },
     {
       "id": 5,
@@ -86,7 +86,7 @@
         "Central location"
       ],
       "price": 450000,
-      "type": "Apartment"
+      "type": "Appartment"
     },
     {
       "id": 7,
@@ -101,7 +101,7 @@
         "Mountain views"
       ],
       "price": 890000,
-      "type": "Apartment"
+      "type": "Appartment"
     },
     {
       "id": 8,

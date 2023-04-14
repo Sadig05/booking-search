@@ -1,46 +1,67 @@
-import {makeAutoObservable, reaction} from "mobx";
-import {IBooking} from "./types";
-import bookingService from "../../services/BookingService";
-import {IFilter} from "./types";
+import { makeAutoObservable } from "mobx";
+import { BookingService } from "../../services/BookingService";
+import { IBooking } from "./types";
 
-class BookingStore{
-    bookingService: bookingService;
+
+
+export class BookingStore {
+    bookingService: BookingService;
     entities: IBooking[] = [];
-    filters: IFilter = {};
+    filters = {};
     isLoading: boolean = false;
-
 
     constructor() {
         console.log("BookingStore constructor");
-        this.bookingService = new bookingService();
+        this.bookingService = new BookingService();
         makeAutoObservable(this);
-
     }
 
-    getBooking = async () => {
+
+    getBookings = async () => {
         this.isLoading = true;
-        this.entities = await this.bookingService.getBooking();
+        this.entities = await this.bookingService.getBookings();
         this.isLoading = false;
     }
 
-    async getBookingsByTitle(title: string) {
+    getBookingsByTitle = async (title: string) => {
         this.isLoading = true;
-        this.entities = await this.bookingService.getBookingsByTitle(title);
+        this.filters = { ...this.filters, title_like: title };
+        this.entities = await this.bookingService.getBookingsByTitle( this.filters);
         this.isLoading = false;
     }
 
-    async getBookingsByType(type: string) {
+    getBookingsByType = async (type: string) => {
         this.isLoading = true;
-        this.entities = await this.bookingService.getBookingsByType(type);
+        this.filters = { ...this.filters, type: type };
+        this.entities = await this.bookingService.getBookingsByType( this.filters);
         this.isLoading = false;
     }
 
-    async getBookingsFilter(filterBy: string) {
+    getBookingsByFilter = async (filter: string) => {
         this.isLoading = true;
-        this.entities = await this.bookingService.getBookingsFilter(filterBy)
+        const sortOptions = {
+            _sort: '',
+            _order: ''
+        };
+
+        if (filter === 'Date added') {
+            sortOptions._sort = 'createdDateTime';
+            sortOptions._order = 'desc';
+        } else if (filter === 'Highest price') {
+            sortOptions._sort = 'price';
+            sortOptions._order = 'desc';
+        } else if (filter === 'Lowest price') {
+            sortOptions._sort = 'price';
+            sortOptions._order = 'asc';
+        }
+        this.filters = { ...this.filters, ...sortOptions };
+        this.entities = await this.bookingService.getBookingsByFilter(this.filters);
         this.isLoading = false;
     }
 
+    updateFilters = (newFilterOptions: any) => {
+        this.filters = { ...this.filters, ...newFilterOptions };
+    };
 }
 
 export default BookingStore

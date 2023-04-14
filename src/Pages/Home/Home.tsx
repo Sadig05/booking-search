@@ -1,35 +1,35 @@
 import {useStore} from "../../stores/RootStore";
 import {IBooking} from "../../stores/BookingStore/types";
 import EntityCard from "../../components/EntityCard/EntityCard";
-import styles from './Home.module.css'
+import styles from './Home.module.scss'
 import {useEffect, useState} from "react";
-import Spinner from "../../components/Spinner/Spinner";
 import {observer} from "mobx-react";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import SelectBox from "../../components/SelectBox/SelectBox";
 
-export interface ISelect {
-    value: string;
-    label: string;
+export interface ISelect{
+    value: string,
+    label: string,
 }
 
 const optionsType = [
-    { value: 'Villa', label: 'Villa' },
-    { value: 'Apartment', label: 'Apartment' },
-    { value: 'Townhouse', label: 'Townhouse' }
+    {value: 'Villa', label: 'Villa'},
+    {value: 'Appartment', label: 'Appartment'},
+    {value: 'Townhouse', label: 'Townhouse'}
 ];
 
 const optionsFilter = [
-    { value: 'addedDate', label: 'Date added' },
-    { value: 'priceDesc', label: 'Highest price' },
-    { value: 'priceAsc', label: 'Lowest price' }
+    {value: 'Date added', label: 'Date added'},
+    {value: 'Highest price', label: 'Highest price'},
+    {value: 'Lowest price', label: 'Lowest price'}
 ];
 
 const Home = () => {
     const {bookingStore} = useStore();
-    const [searchValue , setSearchValue] = useState<string>('');
+    const [searchValue, setSearchValue] = useState<string>('');
     const [selectType, setSelectType] = useState<string>('');
     const [selectFilter, setSelectFilter] = useState<string>('');
+
     const handleGetBookingsByType = (selectedValue: ISelect) => {
         const valueM = selectedValue.value;
         setSelectType(valueM);
@@ -43,47 +43,59 @@ const Home = () => {
     const handleSelectBookingFilter = (selectedValue: ISelect) => {
         const valueM = selectedValue.value;
         setSelectFilter(valueM);
-        bookingStore.getBookingsFilter(valueM);
+        bookingStore.getBookingsByFilter(valueM);
     }
+
 
 
     return (
         <section>
-            {
-                bookingStore.isLoading ? (<Spinner/>) :
-                    (
-                        <main className={styles.container}>
-                            <div className={styles.selectContainer}>
-                                <SelectBox options={optionsType} onChange={handleGetBookingsByType} selectedValue={selectType}/>
-                                <SelectBox options={optionsFilter} onChange={handleSelectBookingFilter} selectedValue={selectFilter}/>
+            <main className={styles.container}>
+                <div className={styles.selectContainer}>
+                    <SelectBox placeHolder='Sort by' defaultValue={optionsFilter[0]} options={optionsFilter}
+                               onChange={handleSelectBookingFilter} selectedValue={selectFilter}/>
+                    <div style={{zIndex: 0}}>
+                        <SelectBox placeHolder='Type' defaultValue={optionsType[0]} options={optionsType} onChange={handleGetBookingsByType}
+                                   selectedValue={selectType}/>
+                    </div>
+                </div>
+                <div className={styles.mainPartContainer}>
+                    <div className={styles.searchBarContainer}>
+                        <SearchBar isLoading={bookingStore.isLoading} value={searchValue} onFinish={handleOnFinish}
+                                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchValue(e.target.value)}/>
+                    </div>
+
+                    {bookingStore.isLoading ? (
+                        <div className={styles.skeleton}>
+                            <div className={styles.imgSkeleton}>
+                                <div className={styles.skeletonImage}></div>
                             </div>
-                           <div className={styles.mainPartContainer}>
-                               <SearchBar value={searchValue} onFinish={handleOnFinish}
-                                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchValue(e.target.value)}/>
+                            <div className={styles.contentSkeleton}>
+                                <div className={styles.skeletonTitle}></div>
+                                <div className={styles.skeletonLocation}></div>
+                                <div className={styles.skeletonAbout}></div>
+                                {/*<div className={styles.skeletonPrice}></div>*/}
+                            </div>
 
-                               {
-                                   bookingStore.entities.map((item: IBooking, index: number) => {
-                                       return (
-
-                                           <div>
-                                               <EntityCard img={item.img} title={item.title} location={item.location}
-                                                           about={item.about}
-                                                           price={item.price} key={item.id}/>
-                                               {index !== bookingStore.entities.length - 1 && (
-                                                   <div className={styles.line}></div>
-                                               )}
-                                           </div>
-
-
-                                       )
-                                   })
-                               }
-                           </div>
-                        </main>
-                    )
-            }
-
+                        </div>
+                    ) : (
+                        <>
+                            {bookingStore.entities.map((item: IBooking, index: number) => {
+                                return (
+                                    <div key={item.id}>
+                                        <EntityCard img={item.img} title={item.title} location={item.location}
+                                                    about={item.about} price={item.price}/>
+                                        {index !== bookingStore.entities.length - 1 &&
+                                            <div className={styles.line}></div>}
+                                    </div>
+                                )
+                            })}
+                        </>
+                    )}
+                </div>
+            </main>
         </section>
+
     )
 }
 

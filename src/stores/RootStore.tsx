@@ -13,7 +13,7 @@ export class RootStore {
     constructor() {
         makeAutoObservable(this);
         this.bookingStore = new BookingStore();
-        this.bookingStore.getBooking();
+        this.bookingStore.getBookings();
     }
 }
 

@@ -2,11 +2,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    /*height: 100vh;*/
 }
 
 .spinner {
-    border: 5px solid #f3f3f3;
+    border: 3px solid transparent;
     border-top: 5px solid #EC7F07;
     border-radius: 50%;
     width: 50px;
