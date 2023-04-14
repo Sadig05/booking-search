@@ -9,7 +9,7 @@
 }
 
 .img{
-    width: 260px;
+    min-width: 260px;
     height: 160px;
     object-fit: cover;
 }
@@ -52,6 +52,7 @@
 .about{
     display: flex;
     color: var(--mainGrey);
+    flex-wrap: wrap;
 }
 
 
@@ -62,6 +63,60 @@
     line-height: 150%;
     letter-spacing: 0.02em;
     color: var(--mainBlack);
+
+}
+
+
+//@media (max-width: 1200px) {
+//
+//    .img{
+//        max-width: 200px;
+//        min-width: 200px;
+//        height: 160px;
+//        object-fit: cover;
+//    }
+//
+//    .entityContent{
+//        font-size: 12px;
+//    }
+//
+//    .about{
+//        flex-wrap: wrap;
+//    }
+//}
+
+
+@media (max-width: 600px) {
+    .cardContainer{
+        flex-direction: column;
+    }
+
+}
+
+@media (min-width: 601px) and (max-width: 767px){
+    .entityContent{
+        font-size: 12px;
+    }
+
+    .img{
+        width: 200px;
+    }
+
+}
+
+@media (min-width: 767px) and (max-width: 921px) {
+    .entityContent {
+        font-size: 12px;
+    }
+
+}
+
+@media (min-width: 922px) {
+    .img{
+        max-width: 260px;
+        min-width: 260px;
+    }
+
 
 }
 

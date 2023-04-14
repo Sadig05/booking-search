@@ -1,4 +1,4 @@
-import styles from './EntityCard.module.css'
+import styles from './EntityCard.module.scss'
 import pin from '../../assets/pin.svg'
 interface IProps {
     img: string;
