@@ -3,7 +3,7 @@
 .container{
     display: flex;
     flex-direction: row;
-    padding: 120px 150px;
+    padding: 120px 10.5%;
     gap: 40px;
 }
 
@@ -134,11 +134,17 @@
     .container {
         padding: 20px 30px;
     }
+    .selectContainer{
+        width: 34%;
+    }
     
 }
 
 @media (min-width: 922px) and (max-width: 1200px) {
     .container{
         padding: 40px 60px;
+    }
+    .selectContainer{
+        width: 37%;
     }
 }
