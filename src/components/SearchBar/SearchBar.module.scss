@@ -3,7 +3,7 @@ $mainOrange: #EC7F07;
 
 .searchBarContainer {
   display: flex;
-  justify-content: center; /* to horizontally center the child elements */
+  justify-content: center;
 }
 
 .searchFieldContainer {
@@ -20,7 +20,7 @@ $mainOrange: #EC7F07;
 }
 
 .searchBarField {
-  flex-grow: 1; /* to make the input take up all available horizontal space */
+  flex-grow: 1;
   padding: 12px 52px;
   background: white;
   border: 1px solid $borderSearch;
@@ -30,7 +30,7 @@ $mainOrange: #EC7F07;
 
 .searchBarBtnContainer {
   display: flex;
-  align-items: center; /* to vertically center the button */
+  align-items: center;
 }
 
 .searchBarBtn {
@@ -48,13 +48,6 @@ $mainOrange: #EC7F07;
 }
 
 
-@media (max-width: 600px) {
-  //.searchBarBtn {
-  //  font-size: 12px;
-  //  line-height: 150%;
-  //  padding: 4px 16px;
-  //  border: none;
-  //}
-  }
+
 
 

@@ -19,9 +19,25 @@ export class BookingStore {
 
     getBookings = async () => {
         this.isLoading = true;
+
+        // Show the skeleton for at least 1 second
+        const MIN_LOADING_TIME = 1000;
+        const startLoadingTime = Date.now();
+
         this.entities = await this.bookingService.getBookings();
-        this.isLoading = false;
-    }
+
+        const endLoadingTime = Date.now();
+        const loadingTime = endLoadingTime - startLoadingTime;
+
+        if (loadingTime < MIN_LOADING_TIME) {
+            setTimeout(() => {
+                this.isLoading = false;
+            }, MIN_LOADING_TIME - loadingTime);
+        } else {
+            this.isLoading = false;
+        }
+    };
+
 
     getBookingsByTitle = async (title: string) => {
         this.isLoading = true;
@@ -62,6 +78,11 @@ export class BookingStore {
     updateFilters = (newFilterOptions: any) => {
         this.filters = { ...this.filters, ...newFilterOptions };
     };
+
+    clearFilters = () => {
+        this.filters = '';
+
+    }
 }
 
 export default BookingStore

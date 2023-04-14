@@ -44,57 +44,108 @@ const Home = () => {
         const valueM = selectedValue.value;
         setSelectFilter(valueM);
         bookingStore.getBookingsByFilter(valueM);
+
     }
 
+    const clearFilters = () => {
+        bookingStore.clearFilters();
+        setSelectFilter('');
+        setSelectType('');
+        bookingStore.getBookings();
+    }
 
 
     return (
         <section>
             <main className={styles.container}>
-                <div className={styles.selectContainer}>
-                    <SelectBox placeHolder='Sort by' defaultValue={optionsFilter[0]} options={optionsFilter}
-                               onChange={handleSelectBookingFilter} selectedValue={selectFilter}/>
-                    <div style={{zIndex: 0}}>
-                        <SelectBox placeHolder='Type' defaultValue={optionsType[0]} options={optionsType} onChange={handleGetBookingsByType}
-                                   selectedValue={selectType}/>
+                <div className={styles.selectWrapper}>
+                    <div className={styles.selectContainer}>
+                        <SelectBox
+                            placeHolder="Sort by"
+                            defaultValue={optionsFilter[0]}
+                            options={optionsFilter}
+                            onChange={handleSelectBookingFilter}
+                            selectedValue={selectFilter}
+                        />
+                        <div style={{ zIndex: 0 }}>
+                            <SelectBox
+                                placeHolder="Type"
+                                defaultValue={optionsType[0]}
+                                options={optionsType}
+                                onChange={handleGetBookingsByType}
+                                selectedValue={selectType}
+                            />
+                        </div>
+                        <button onClick={clearFilters} className={styles.clearFilter}>
+                            Clear Filter
+                        </button>
                     </div>
                 </div>
                 <div className={styles.mainPartContainer}>
                     <div className={styles.searchBarContainer}>
-                        <SearchBar isLoading={bookingStore.isLoading} value={searchValue} onFinish={handleOnFinish}
-                                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchValue(e.target.value)}/>
+                        <SearchBar
+                            isLoading={bookingStore.isLoading}
+                            value={searchValue}
+                            onFinish={handleOnFinish}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                setSearchValue(e.target.value)
+                            }
+                        />
                     </div>
-
                     {bookingStore.isLoading ? (
-                        <div className={styles.skeleton}>
-                            <div className={styles.imgSkeleton}>
-                                <div className={styles.skeletonImage}></div>
-                            </div>
-                            <div className={styles.contentSkeleton}>
-                                <div className={styles.skeletonTitle}></div>
-                                <div className={styles.skeletonLocation}></div>
-                                <div className={styles.skeletonAbout}></div>
-                                {/*<div className={styles.skeletonPrice}></div>*/}
-                            </div>
-
-                        </div>
+                        <>
+                            {[...Array(bookingStore.entities.length)].map((_, index) => (
+                                <div key={index} className={styles.skeleton}>
+                                    <div className={styles.imgSkeleton}>
+                                        <div className={styles.skeletonImage}></div>
+                                    </div>
+                                    <div className={styles.contentSkeleton}>
+                                        <div className={styles.skeletonTitle}></div>
+                                        <div className={styles.skeletonLocation}></div>
+                                        <div className={styles.skeletonAbout}></div>
+                                        {/*<div className={styles.skeletonPrice}></div>*/}
+                                    </div>
+                                </div>
+                            ))}
+                        </>
                     ) : (
                         <>
-                            {bookingStore.entities.map((item: IBooking, index: number) => {
-                                return (
-                                    <div key={item.id}>
-                                        <EntityCard img={item.img} title={item.title} location={item.location}
-                                                    about={item.about} price={item.price}/>
-                                        {index !== bookingStore.entities.length - 1 &&
-                                            <div className={styles.line}></div>}
+                            {bookingStore.entities.map((item: IBooking, index: number) => (
+                                <div key={item.id}>
+                                    <div className={styles.entityContainer}>
+                                        {bookingStore.isLoading ? (
+                                            <div className={styles.skeleton}>
+                                                <div className={styles.imgSkeleton}>
+                                                    <div className={styles.skeletonImage}></div>
+                                                </div>
+                                                <div className={styles.contentSkeleton}>
+                                                    <div className={styles.skeletonTitle}></div>
+                                                    <div className={styles.skeletonLocation}></div>
+                                                    <div className={styles.skeletonAbout}></div>
+                                                    {/*<div className={styles.skeletonPrice}></div>*/}
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <EntityCard
+                                                img={item.img}
+                                                title={item.title}
+                                                location={item.location}
+                                                about={item.about}
+                                                price={item.price}
+                                            />
+                                        )}
                                     </div>
-                                )
-                            })}
+                                    {index !== bookingStore.entities.length - 1 && (
+                                        <div className={styles.line}></div>
+                                    )}
+                                </div>
+                            ))}
                         </>
                     )}
                 </div>
             </main>
         </section>
+
 
     )
 }

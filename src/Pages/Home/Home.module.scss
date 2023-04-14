@@ -1,5 +1,5 @@
 
-
+$mainOrange: #EC7F07;
 .container{
     display: flex;
     flex-direction: row;
@@ -7,19 +7,25 @@
     gap: 40px;
 }
 
+.selectWrapper{
+    width: 23%;
+}
+
 .selectContainer{
-    height: 160px;
+    //height: 160px;
     position: sticky;
     top: 0;
     zIndex: 1;
     display: flex;
     flex-direction: column;
-    width: 23%;
+    width: 100%;
     gap: 10px;
     border-top: 1px solid #DBDBDB;
     border-bottom: 1px solid #DBDBDB;
     padding: 20px 0;
 }
+
+
 
 .mainPartContainer{
     display: flex;
@@ -31,6 +37,19 @@
     padding-bottom: 28px;
 }
 
+.clearFilter{
+    font-size: 16px;
+    line-height: 150%;
+    padding: 12px 48px;
+    color: white;
+    background-color: $mainOrange;
+    border-radius: 0px 4px 4px 0px;
+    border: none;
+    &:hover {
+        background-color: darken($mainOrange, 10%);
+        cursor: pointer;
+    }
+}
 
 .line {
     width: 100%;
@@ -47,6 +66,7 @@
 .skeleton {
     display: flex;
     flex-direction: row;
+    margin-bottom: 20px;
     gap: 20px;
 }
 
@@ -94,13 +114,17 @@
         flex-direction: column;
         align-items: center;
     }
-    .selectContainer{
-            height: auto;
-            position: static;
+    .selectWrapper{
             width: 100%;
             border: none;
-            padding: 20px 0;
             margin-bottom: 20px;
+
+    }
+    .selectContainer{
+        height: auto;
+        position: static;
+    }
+    .searchBarContainer{
 
     }
 }
@@ -112,13 +136,17 @@
         height: auto;
         flex-direction: column;
     }
+    .selectWrapper {
+        height: auto;
+        width: 100%;
+        margin-bottom: 20px;
+    }
     .selectContainer {
         height: auto;
         position: static;
         width: 100%;
         border: none;
         padding: 20px 0;
-        margin-bottom: 20px;
     }
     .mainPartContainer {
         width: 100%;
@@ -129,12 +157,19 @@
 
 }
 
-/* Media query for screens between 768px and 921px */
+
+
+@media (max-width: 600px) {
+    .skeleton {
+        flex-direction: column;
+    }
+}
+
 @media (min-width: 768px) and (max-width: 921px) {
     .container {
         padding: 20px 30px;
     }
-    .selectContainer{
+    .selectWrapper{
         width: 34%;
     }
     
@@ -144,7 +179,7 @@
     .container{
         padding: 40px 60px;
     }
-    .selectContainer{
+    .selectWrapper{
         width: 37%;
     }
 }
