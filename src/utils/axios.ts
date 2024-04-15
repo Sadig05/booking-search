@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = 'http://localhost:3004'
+const baseUrl = 'https://pets-show-8ajn.onrender.com'
 
 
 const instance = axios.create({baseURL :baseUrl });

@@ -43,9 +43,22 @@ const Home = () => {
     const handleSelectBookingFilter = (selectedValue: ISelect) => {
         const valueM = selectedValue.value;
         setSelectFilter(valueM);
-        bookingStore.getBookingsByFilter(valueM);
+  
+    
+        // Define sortOptions based on the selected filter value
+        let sortOptions = {};
+        if (valueM === 'Date added') {
+            sortOptions = { _sort: 'createdDateTime', _order: 'desc' };
+        } else if (valueM === 'Highest price') {
+            sortOptions = { _sort: 'price', _order: 'desc' };
+        } else if (valueM === 'Lowest price') {
+            sortOptions = { _sort: 'price', _order: 'asc' };
+        }
 
+
+        bookingStore.getBookingsByFilter(sortOptions);
     }
+    
 
     const clearFilters = () => {
         bookingStore.clearFilters();
