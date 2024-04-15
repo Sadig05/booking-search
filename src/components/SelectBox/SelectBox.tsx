@@ -5,7 +5,7 @@ import {ISelect} from "../../Pages/Home/Home";
 import styles from './SelectBox.module.scss'
 
 interface SelectBoxProps {
-    onChange: (selectedValue: ISelect) => void;
+    onChange: (selectedValue: { value: string; label: string }) => void; 
     selectedValue: string;
     options: { value: string, label: string }[]; // Add options prop
     defaultValue: any
@@ -48,7 +48,7 @@ const SelectBox = ({onChange, selectedValue, options, defaultValue , placeHolder
         <Select
             value={{ value: selectedValue, label: selectedValue }}
             defaultValue={options[2]}
-            onChange={onChange}
+            onChange={(newValue, actionMeta) => onChange(newValue as { value: string; label: string })} 
             options={options}
             placeholder="Sort by"
             styles={customStyles}
