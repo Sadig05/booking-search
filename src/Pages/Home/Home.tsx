@@ -65,6 +65,7 @@ const Home = () => {
         setSelectFilter('');
         setSelectType('');
         bookingStore.getBookings();
+        setSearchValue('')
     }
 
 
